@@ -29,30 +29,6 @@ public class Splitter : MonoBehaviour
             screenPosition = Input.mousePosition;
             hasMouseDown = true;
             screenPosition.z = Camera.main.nearClipPlane + 1;
-            //wordPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-            //transform.position = wordPosition;
-            //Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4, 0.005f, 4), transform.rotation, ~LayerMask.GetMask("Solid"));
-
-            //foreach (Collider c in colliders)
-            //{
-            //    Destroy(c.gameObject);
-            //    // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
-
-            //    SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
-            //    if (hull != null)
-            //    {
-            //        GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
-            //        GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
-            //        GameObject[] objs = new GameObject[] { lower, upper };
-
-            //        foreach (GameObject obj in objs)
-            //        {
-            //            Rigidbody rb = obj.AddComponent<Rigidbody>();
-            //            obj.AddComponent<MeshCollider>().convex = true;
-            //            rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
-            //        }
-            //    }
-            //}
         }
 
         if (Input.GetMouseButtonUp(0) && hasMouseDown)
@@ -64,17 +40,35 @@ public class Splitter : MonoBehaviour
             transform.position = wordPosition;
 
             float rotate = (upPos.y - screenPosition.y) / (upPos.x - screenPosition.x);
-            transform.Rotate(0, 0, -rotate);
-
+            transform.Rotate(0, 0, -10 * rotate);
+            Cut();
             hasMouseDown = false;
         }
     }
 
-    private static void GetDropDownPos()
+    private void Cut()
     {
-        if (Input.GetMouseButtonDown(0))
+        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4, 0.005f, 4), transform.rotation, ~LayerMask.GetMask("Solid"));
+
+        foreach (Collider c in colliders)
         {
-            print("down");
+            Destroy(c.gameObject);
+            // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
+
+            SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
+            if (hull != null)
+            {
+                GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
+                GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
+                GameObject[] objs = new GameObject[] { lower, upper };
+
+                foreach (GameObject obj in objs)
+                {
+                    Rigidbody rb = obj.AddComponent<Rigidbody>();
+                    obj.AddComponent<MeshCollider>().convex = true;
+                    rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
+                }
+            }
         }
-    } 
+    }
 }
