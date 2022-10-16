@@ -6,7 +6,7 @@ using EzySlice;
 public class Splitter : MonoBehaviour
 {
 	public Material matCross;
-    public Vector3 screenPosition;
+    public Vector3 downPos;
     public Vector3 wordPosition;
     private bool hasMouseDown = false;
 
@@ -26,21 +26,24 @@ public class Splitter : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            screenPosition = Input.mousePosition;
+            downPos = Input.mousePosition;
             hasMouseDown = true;
-            screenPosition.z = Camera.main.nearClipPlane + 1;
+            downPos.z = Camera.main.nearClipPlane + 1;
         }
 
         if (Input.GetMouseButtonUp(0) && hasMouseDown)
         {
             Vector3 upPos = Input.mousePosition;
             upPos.z = Camera.main.nearClipPlane + 1;
-            Vector3 pos = new Vector3((screenPosition.x + upPos.x) / 2, (screenPosition.y + upPos.y) / 2, (screenPosition.z + upPos.z) / 2);
-            wordPosition = Camera.main.ScreenToWorldPoint(pos);
-            transform.position = wordPosition;
-
-            float rotate = (upPos.y - screenPosition.y) / (upPos.x - screenPosition.x);
-            transform.Rotate(0, 0, -10 * rotate);
+            Vector3 mouseDiff = Camera.main.ScreenToWorldPoint(upPos) - Camera.main.ScreenToWorldPoint(downPos);
+            Debug.Log(mouseDiff);
+            Vector3 centerPos = (Camera.main.ScreenToWorldPoint(upPos) + Camera.main.ScreenToWorldPoint(downPos)) / 2;
+            transform.position = centerPos;
+            float planeLength = mouseDiff.magnitude;
+            transform.localScale = new Vector3(planeLength, transform.localScale.y, transform.localScale.z);
+            float rotate = Mathf.Atan(mouseDiff.y / mouseDiff.x) / Mathf.PI * 180;
+            Debug.Log(rotate);
+            transform.rotation = Quaternion.Euler(0, 0, rotate);
             Cut();
             hasMouseDown = false;
         }
@@ -48,8 +51,8 @@ public class Splitter : MonoBehaviour
 
     private void Cut()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4, 0.005f, 4), transform.rotation, ~LayerMask.GetMask("Solid"));
-
+        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~LayerMask.GetMask("Solid"));
+        Debug.Log(colliders.Length);
         foreach (Collider c in colliders)
         {
             Destroy(c.gameObject);
