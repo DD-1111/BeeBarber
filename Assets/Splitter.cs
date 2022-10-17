@@ -8,6 +8,8 @@ public class Splitter : MonoBehaviour
 	public Material matCross;
     public Vector3 downPos;
     public Vector3 wordPosition;
+    public GameObject cam;
+    public GameObject player;
     private bool hasMouseDown = false;
 
     // Start is called before the first frame update
@@ -22,7 +24,7 @@ public class Splitter : MonoBehaviour
         //float mx = Input.GetAxis("Mouse X");
 
         //transform.Rotate(0, 0, -mx);
-
+        RaycastHit hit;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -30,20 +32,26 @@ public class Splitter : MonoBehaviour
             hasMouseDown = true;
             downPos.z = Camera.main.nearClipPlane + 1;
         }
-
+        Debug.Log(cam.transform.forward);
         if (Input.GetMouseButtonUp(0) && hasMouseDown)
         {
             Vector3 upPos = Input.mousePosition;
             upPos.z = Camera.main.nearClipPlane + 1;
             Vector3 mouseDiff = Camera.main.ScreenToWorldPoint(upPos) - Camera.main.ScreenToWorldPoint(downPos);
-            Debug.Log(mouseDiff);
-            Vector3 centerPos = (Camera.main.ScreenToWorldPoint(upPos) + Camera.main.ScreenToWorldPoint(downPos)) / 2;
-            transform.position = centerPos;
+            //Vector3 centerPos = (Camera.main.ScreenToWorldPoint(upPos) + Camera.main.ScreenToWorldPoint(downPos)) / 2;
             float planeLength = mouseDiff.magnitude;
-            transform.localScale = new Vector3(planeLength, transform.localScale.y, transform.localScale.z);
             float rotate = Mathf.Atan(mouseDiff.y / mouseDiff.x) / Mathf.PI * 180;
             Debug.Log(rotate);
-            transform.rotation = Quaternion.Euler(0, 0, rotate);
+
+            //transform.position = centerPos;
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+
+            float pointingX = cam.transform.forward.y * -69;
+            Debug.Log(pointingX);
+            Debug.Log(cam.transform.forward);
+            float pointingY = cam.transform.forward.z * -180;
+            //transform.rotation = Quaternion.Euler(pointingX, pointingY, 0);
+
             Cut();
             hasMouseDown = false;
         }
@@ -52,7 +60,6 @@ public class Splitter : MonoBehaviour
     private void Cut()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~LayerMask.GetMask("Solid"));
-        Debug.Log(colliders.Length);
         foreach (Collider c in colliders)
         {
             Destroy(c.gameObject);
