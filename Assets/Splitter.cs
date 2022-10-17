@@ -69,6 +69,7 @@ public class Splitter : MonoBehaviour
                 {
                     Rigidbody rb = obj.AddComponent<Rigidbody>();
                     obj.AddComponent<MeshCollider>().convex = true;
+                    obj.transform.parent = GameObject.Find("CutObjects").transform;
                     rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
                 }
             }
