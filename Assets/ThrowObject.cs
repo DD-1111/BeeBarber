@@ -14,7 +14,7 @@ public class ThrowObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (OVRInput.GetDown(OVRInput.Button.One))
         {
         	GameObject prefab = prefabs[Random.Range(0, prefabs.Count - 1)];
         	GameObject go = Instantiate(prefab, transform.position, transform.rotation);

@@ -27,6 +27,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
+
+	public float flyspeedLimit = 6f;
 	/// <summary>
 	/// The rate acceleration during movement.
 	/// </summary>
@@ -539,7 +541,8 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public bool Jump()
 	{
-		if (!Controller.isGrounded)
+		//Debug.Log(transform.lossyScale.y * JumpForce);
+		if (transform.lossyScale.y * JumpForce > flyspeedLimit)
 			return false;
 
 		MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);

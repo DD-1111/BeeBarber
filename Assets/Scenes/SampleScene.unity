@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 292253328}
   - component: {fileID: 292253327}
   - component: {fileID: 292253326}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1607804096}
   m_Father: {fileID: 1618198067}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -456,6 +457,7 @@ GameObject:
   - component: {fileID: 824192577}
   - component: {fileID: 824192581}
   - component: {fileID: 824192582}
+  - component: {fileID: 824192583}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -484,7 +486,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824192576}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -542,7 +544,6 @@ Transform:
   - {fileID: 963194228}
   - {fileID: 1667828644}
   - {fileID: 1666213631}
-  - {fileID: 1607804096}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -571,7 +572,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824192576}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce01e23651c620143acefbfd290a7bd2, type: 3}
   m_Name: 
@@ -586,6 +587,35 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   uplimit: 5
+--- !u!114 &824192583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824192576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0950df82e7936c84983497630bde5b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyspeedLimit: 6
+  Acceleration: 0.1
+  Damping: 0.3
+  BackAndSideDampen: 0.5
+  JumpForce: 0.3
+  RotationAmount: 1.5
+  RotationRatchet: 45
+  SnapRotation: 1
+  RotateAroundGuardianCenter: 0
+  FixedSpeedSteps: 0
+  HmdResetsY: 1
+  HmdRotatesY: 1
+  GravityModifier: 0.379
+  useProfileData: 1
+  EnableLinearMovement: 1
+  EnableRotation: 1
+  RotationEitherThumbstick: 0
 --- !u!1 &873022338
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,7 +628,7 @@ GameObject:
   - component: {fileID: 873022342}
   - component: {fileID: 873022341}
   - component: {fileID: 873022340}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,7 +805,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d71a0dcd8fba05244bc1cbb3e1ddf33e, type: 3}
   m_Name: 
@@ -955,6 +985,7 @@ MonoBehaviour:
   wordPosition: {x: 0, y: 0, z: 0}
   cam: {fileID: 963194225}
   player: {fileID: 824192576}
+  cutThreshhold: 10
 --- !u!23 &1607804094
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1013,12 +1044,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607804091}
   m_LocalRotation: {x: -0, y: -0, z: 0.007764323, w: 0.9999699}
-  m_LocalPosition: {x: -0.03, y: 0.29, z: -0.01}
-  m_LocalScale: {x: 5, y: 0.009999999, z: 12}
+  m_LocalPosition: {x: -0.21, y: -0.15, z: 0.792}
+  m_LocalScale: {x: 3.668319, y: 0.066666655, z: 2.277793}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 824192580}
-  m_RootOrder: 3
+  m_Father: {fileID: 292253325}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.89}
 --- !u!114 &1607804097
 MonoBehaviour:
@@ -1325,6 +1356,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482130, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484591312116288, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593680705043960, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

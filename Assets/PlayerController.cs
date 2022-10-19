@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         isGround = Physics.CheckSphere(groundCheck.position, checkRadius, groundLayer);
+        // returns a float of the hand trigger¡¯s current state on the controller
+        // specified by the controller variable.
+   
 
         if (isGround && v.y < 0)
         {
@@ -45,7 +49,7 @@ public class PlayerController : MonoBehaviour
    
 
         v.y -= g * Time.deltaTime;
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") ||  OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0f)
         {
             if (v.y <= uplimit)
             {
@@ -53,7 +57,7 @@ public class PlayerController : MonoBehaviour
       
             }
         }
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") || OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0f)
         {
             if (v.y <= uplimit)
             {
