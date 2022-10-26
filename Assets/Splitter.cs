@@ -26,7 +26,6 @@ public class Splitter : MonoBehaviour
         //float mx = Input.GetAxis("Mouse X");
 
         //transform.Rotate(0, 0, -mx);
-        RaycastHit hit;
 
 
         if (Input.GetMouseButtonDown(0) || OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.1f)
@@ -81,24 +80,26 @@ public class Splitter : MonoBehaviour
 
     private void Cut()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~LayerMask.GetMask("Solid"));
+        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid")));
         foreach (Collider c in colliders)
         {
             Destroy(c.gameObject);
             // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
-
-            SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
-            if (hull != null)
+            if (!c.CompareTag("part"))
             {
-                GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
-                GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
-                GameObject[] objs = new GameObject[] { lower, upper };
-
-                foreach (GameObject obj in objs)
+                SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
+                if (hull != null)
                 {
-                    Rigidbody rb = obj.AddComponent<Rigidbody>();
-                    obj.AddComponent<MeshCollider>().convex = true;
-                    rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
+                    GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
+                    GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
+                    GameObject[] objs = new GameObject[] { lower, upper };
+
+                    foreach (GameObject obj in objs)
+                    {
+                        Rigidbody rb = obj.AddComponent<Rigidbody>();
+                        obj.AddComponent<MeshCollider>().convex = true;
+                        rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
+                    }
                 }
             }
         }
