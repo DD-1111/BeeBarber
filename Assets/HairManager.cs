@@ -40,6 +40,7 @@ public class HairManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         Vector3 curPos = transform.position;
         int count = 0;
         float rowInterv = arrangeLength / row;
@@ -54,6 +55,41 @@ public class HairManager : MonoBehaviour
                     count++;
                 }
             }
+        }*/
+        UpdateInSphere();
+    }
+
+    private static float MAX_RADIUS = 3f;
+    private static float MAX_HEIGHT = 2.5f;
+    private static int NUM_LAYERS = 5;
+    private static int INIT_NUN_HAIRS = 5;
+
+    private void UpdateInSphere()
+    {
+        Vector3 center = transform.position;
+        int count = 0;
+        int currentNumHairs = INIT_NUN_HAIRS;
+
+        for (int layer = 1; layer <= NUM_LAYERS; layer++)
+        {
+            float height = MAX_HEIGHT * layer / NUM_LAYERS;
+            float radius = height * MAX_RADIUS / MAX_HEIGHT;
+            float yPos = center.y + MAX_HEIGHT - height;
+            float angleDiff = 360.0f / currentNumHairs;
+
+            for (int i = 0; i < currentNumHairs; i++)
+            {
+                float angle = i * angleDiff;
+                float xPos = radius * Mathf.Cos(angle);
+                float zPos = radius * Mathf.Sin(angle);
+                lastList[count].transform.position = new Vector3(center.x + xPos, yPos, center.z + zPos);
+                count++;
+                if (count >= n)
+                {
+                    return;
+                }
+            }
+            currentNumHairs += INIT_NUN_HAIRS;
         }
     }
 }
