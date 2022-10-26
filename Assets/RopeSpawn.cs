@@ -42,7 +42,7 @@ public class RopeSpawn : MonoBehaviour
 
     public void Spawn()
     {
-        Debug.Log("test");
+        
         int count =(int) (length / partDistance);
 
         for (int i = 0; i < count; i++)
