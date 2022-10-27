@@ -53,7 +53,7 @@ public class OVRPlayerController : MonoBehaviour
 	/// <summary>
 	/// The force applied to the character when jumping.
 	/// </summary>
-	public float JumpForce = 0.3f;
+	public float JumpForce = 0.5f;
 
 	/// <summary>
 	/// The rate of rotation when using a gamepad.
@@ -100,7 +100,7 @@ public class OVRPlayerController : MonoBehaviour
 	/// <summary>
 	/// Modifies the strength of gravity.
 	/// </summary>
-	public float GravityModifier = 0.379f;
+	public float GravityModifier = 0.1f;
 
 	/// <summary>
 	/// If true, each OVRPlayerController will use the player's physical height.
@@ -306,18 +306,31 @@ public class OVRPlayerController : MonoBehaviour
 		moveDirection += MoveThrottle * SimulationRate * Time.deltaTime;
 
 		// Gravity
+		bool hold = (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.1f || OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.1f);
+		
 		if (Controller.isGrounded && FallSpeed <= 0)
 			FallSpeed = ((Physics.gravity.y * (GravityModifier * 0.002f)));
+		else if (hold)
+			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)));
 		else
 			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)) * SimulationRate * Time.deltaTime);
 
-		moveDirection.y += FallSpeed * SimulationRate * Time.deltaTime;
+		if (hold)
+		{
+			moveDirection.y += FallSpeed * SimulationRate * Time.deltaTime * 0.2f;
+		}
+		else
+		{
+			moveDirection.y += FallSpeed * SimulationRate * Time.deltaTime;
+		}
+
+
 
 
 		// Flap to jump
 		Quaternion leftHandRotation = leftHand.transform.rotation;
 		Quaternion rightHandRotation = rightHand.transform.rotation;
-		if (Time.frameCount % 4 == 0)
+		if (Time.frameCount % 3 == 0)
 		{
 
 			float ldif = leftHandRotation.x - lRotation.x;
@@ -398,7 +411,7 @@ public class OVRPlayerController : MonoBehaviour
 
 			// No positional movement if we are in the air
 			if (!Controller.isGrounded)
-				MoveScale = 0.0f;
+				MoveScale = 0.9f;
 
 			MoveScale *= SimulationRate * Time.deltaTime;
 

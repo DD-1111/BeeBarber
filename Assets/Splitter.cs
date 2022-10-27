@@ -16,6 +16,8 @@ public class Splitter : MonoBehaviour
 
     public GameObject player;
 
+    public bool computationSaveMode;
+
     private bool hasMouseDown = false;
 
     Quaternion bladeRotation;
@@ -75,8 +77,11 @@ public class Splitter : MonoBehaviour
         {
             OVRInput.SetControllerVibration(1, 1, OVRInput.Controller.RTouch);
             vibeTime += Time.deltaTime;
-            if (vibeTime > 1) cut = false;
-            vibeTime = 0f;
+            if (vibeTime > 0.15f ){
+                cut = false;
+        
+                vibeTime = 0f;
+            }
         } else
         {
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
@@ -85,7 +90,7 @@ public class Splitter : MonoBehaviour
 
         Quaternion newbladeRotation = transform.parent.transform.parent.transform.rotation;
 
-        if (Time.frameCount % 4 == 0)
+        if (!cut)
         {
 
             Vector3 dif = new Vector3(newbladeRotation.x - bladeRotation.x, newbladeRotation.y - bladeRotation.y, newbladeRotation.z - bladeRotation.z);
@@ -105,13 +110,15 @@ public class Splitter : MonoBehaviour
 
     private void Cut()
     {
-        cut = true;
+       
         Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid")));
         foreach (Collider c in colliders)
         {
             Destroy(c.gameObject);
             // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
-            if (!c.CompareTag("part"))
+
+            // only do full slice while computationSaveMode is off
+            if (!c.CompareTag("part") || !computationSaveMode)
             {
                 SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
                 if (hull != null)
@@ -128,6 +135,7 @@ public class Splitter : MonoBehaviour
                     }
                 }
             }
+            cut = true;
         }
     }
 }
