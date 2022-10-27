@@ -7,13 +7,25 @@ using UnityEngine.XR;
 public class Splitter : MonoBehaviour
 {
 	public Material matCross;
+
     public Vector3 downPos;
+
     public Vector3 wordPosition;
+
     public GameObject cam;
+
     public GameObject player;
+
     private bool hasMouseDown = false;
+
     Quaternion bladeRotation;
+
     public float cutThreshhold = 5f;
+
+    private bool cut = false;
+
+    private float vibeTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,9 +70,22 @@ public class Splitter : MonoBehaviour
             Cut();
             hasMouseDown = false;
         }
+
+        if (cut)
+        {
+            OVRInput.SetControllerVibration(1, 1, OVRInput.Controller.RTouch);
+            vibeTime += Time.deltaTime;
+            if (vibeTime > 1) cut = false;
+            vibeTime = 0f;
+        } else
+        {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+        }
+
+
         Quaternion newbladeRotation = transform.parent.transform.parent.transform.rotation;
 
-        if (Time.frameCount % 3 == 0)
+        if (Time.frameCount % 4 == 0)
         {
 
             Vector3 dif = new Vector3(newbladeRotation.x - bladeRotation.x, newbladeRotation.y - bladeRotation.y, newbladeRotation.z - bladeRotation.z);
@@ -80,6 +105,7 @@ public class Splitter : MonoBehaviour
 
     private void Cut()
     {
+        cut = true;
         Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid")));
         foreach (Collider c in colliders)
         {

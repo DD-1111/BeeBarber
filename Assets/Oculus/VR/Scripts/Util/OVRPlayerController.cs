@@ -27,6 +27,12 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
+	public GameObject leftHand;
+	public GameObject rightHand;
+	public float flyThreshhold = 5f;
+
+	private Quaternion lRotation;
+	private Quaternion rRotation;
 
 	public float flyspeedLimit = 6f;
 	/// <summary>
@@ -306,6 +312,26 @@ public class OVRPlayerController : MonoBehaviour
 			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)) * SimulationRate * Time.deltaTime);
 
 		moveDirection.y += FallSpeed * SimulationRate * Time.deltaTime;
+
+
+		// Flap to jump
+		Quaternion leftHandRotation = leftHand.transform.rotation;
+		Quaternion rightHandRotation = rightHand.transform.rotation;
+		if (Time.frameCount % 4 == 0)
+		{
+
+			float ldif = leftHandRotation.x - lRotation.x;
+			float rdif = rightHandRotation.x - rRotation.x;
+			bool lflap = Mathf.Abs(ldif * 100) > flyThreshhold;
+			bool rflap = Mathf.Abs(rdif * 100) > flyThreshhold;
+			// Debug.Log(difsquare);
+			if (lflap && rflap)
+			{
+				Jump();
+			}
+		}
+		lRotation = leftHandRotation;
+		rRotation = rightHandRotation;
 
 
 		if (Controller.isGrounded && MoveThrottle.y <= transform.lossyScale.y * 0.001f)
