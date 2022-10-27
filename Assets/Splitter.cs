@@ -114,6 +114,16 @@ public class Splitter : MonoBehaviour
         Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid")));
         foreach (Collider c in colliders)
         {
+
+            // Add reactive force to the hair contacting blade, need to add explosion force to the part before and after this part.
+            // unfinished yet
+
+            //if (c.CompareTag("part"))
+            //{
+            //    Rigidbody temp = c.gameObject.GetComponent<Rigidbody>();
+            //    temp.AddExplosionForce(100, c.gameObject.transform.position, 40, 2.0f);
+            //}
+
             Destroy(c.gameObject);
             // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
 

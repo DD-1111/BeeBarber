@@ -311,7 +311,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (Controller.isGrounded && FallSpeed <= 0)
 			FallSpeed = ((Physics.gravity.y * (GravityModifier * 0.002f)));
 		else if (hold)
-			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)));
+			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.0003f)));
 		else
 			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)) * SimulationRate * Time.deltaTime);
 
