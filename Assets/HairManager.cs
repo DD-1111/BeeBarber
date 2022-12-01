@@ -61,8 +61,8 @@ public class HairManager : MonoBehaviour
 
     private static float MAX_RADIUS = 3f;
     private static float MAX_HEIGHT = 2.5f;
-    private static int NUM_LAYERS = 5;
-    private static int INIT_NUN_HAIRS = 5;
+    private static int NUM_LAYERS = 9;
+    private static int INIT_NUN_HAIRS = 10;
 
     private void UpdateInSphere()
     {
