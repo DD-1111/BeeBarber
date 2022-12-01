@@ -80,14 +80,16 @@ public class HairManager : MonoBehaviour
             for (int i = 0; i < currentNumHairs; i++)
             {
                 float angle = i * angleDiff;
-                float xPos = radius * Mathf.Cos(angle);
-                float zPos = radius * Mathf.Sin(angle);
+                float angleInRadian = angle / 180 * Mathf.PI;
+                float xPos = radius * Mathf.Cos(angleInRadian);
+                float zPos = radius * Mathf.Sin(angleInRadian);
                 lastList[count].transform.position = new Vector3(center.x + xPos, yPos, center.z + zPos);
                 count++;
                 if (count >= n)
                 {
                     return;
                 }
+
             }
             currentNumHairs += INIT_NUN_HAIRS;
         }
