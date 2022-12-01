@@ -5,20 +5,21 @@ using System.Collections;
 public class GrappleRopeController : MonoBehaviour
 {
 
-	public LineRenderer lineRenderer;
+	private LineRenderer lineRenderer;
+	private GameObject connected;
 
 	// Use this for initialization
 	void Start()
 	{
-		lineRenderer.positionCount = transform.parent.childCount;
+		lineRenderer = transform.GetComponent<LineRenderer>();
+		connected = transform.GetComponent<SpringJoint>().connectedBody.gameObject;
+		lineRenderer.positionCount = 2;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		for (int i = 0; i < lineRenderer.positionCount; ++i)
-		{
-			lineRenderer.SetPosition(i, transform.parent.GetChild(i).position);
-		}
+		lineRenderer.SetPosition(0, transform.position);
+		lineRenderer.SetPosition(1, connected.transform.position);
 	}
 }

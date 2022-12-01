@@ -46,7 +46,8 @@ public class newSpawnRope : MonoBehaviour
         int count = (int)(length / partDistance);
 
         for (int i = 0; i < count; i++)
-        {
+        { 
+           
             GameObject tmp;
             tmp = Instantiate(partPrefab, new Vector3(transform.position.x, transform.position.y + partDistance * (i + 1), transform.position.z), Quaternion.identity, parentObject.transform);
             tmp.transform.eulerAngles = new Vector3(180, 0, 0);
