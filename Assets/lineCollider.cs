@@ -6,6 +6,8 @@ public class lineCollider : MonoBehaviour
 {
     int partNumber;
     HealthBar healthBar;
+    private List<Item> list;
+    private IEnumerator coroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +33,23 @@ public class lineCollider : MonoBehaviour
                 SphereCollider sc = tmp.AddComponent<SphereCollider>() as SphereCollider;
                 sc.center = new Vector3(0f, 0f, 0f);
                 sc.radius = 0.1f;
+                HairCutController hairCutController = tmp.GetComponent<HairCutController>();
+                hairCutController.isCut = true;
+                hairCutController.cutTime = System.DateTime.Now;
             }
         }
     }
+}
+
+public class Item
+{
+    public GameObject gameObject;
+    public System.DateTime time;
+
+    public Item(GameObject gameObject, System.DateTime time)
+    {
+        this.gameObject = gameObject;
+        this.time = time;
+    }
+
 }
