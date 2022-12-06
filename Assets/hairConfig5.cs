@@ -38,6 +38,7 @@ public class hairConfig5 : MonoBehaviour
         for (int i = transform.childCount - 1; i > 0; i--)
         {
             JointDrive drive = new JointDrive();
+            SoftJointLimitSpring linear = new SoftJointLimitSpring();
 
             if (positionSpring * decay > minimumSpring)
             {
@@ -56,9 +57,18 @@ public class hairConfig5 : MonoBehaviour
             config.yDrive = drive;
             config.zDrive = drive;
             decay *= decayfactor;
+
+            linear.spring = positionSpring* (0.5f - Mathf.Abs(transform.rotation.x));
+            Debug.Log(positionSpring * (0.5f - Mathf.Abs(transform.rotation.x)));
+            linear.damper = 1;
+            config.linearLimitSpring = linear;
         }
     }
 
+    public void rearrangeSpring()
+    {
+        apply = true;
+    } 
     // Update is called once per frame
     void Update()
     {

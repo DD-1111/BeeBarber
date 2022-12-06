@@ -26,7 +26,7 @@ public class lineCollider : MonoBehaviour
             {
                 int ncut = int.Parse(transform.name) - 1;
                 healthBar.TakeDamage(0.035f);
-                Destroy(transform.parent.GetChild(ncut).GetComponent<SpringJoint>());
+                Destroy(transform.parent.GetChild(ncut).GetComponent<ConfigurableJoint>());
                 Destroy(transform.parent.GetChild(ncut).GetComponent<LineRenderer>());
                 Destroy(transform.parent.GetChild(ncut).GetComponent<lineCollider>());
                 Destroy(transform.parent.GetChild(ncut).GetComponent<GrappleRopeController>());
