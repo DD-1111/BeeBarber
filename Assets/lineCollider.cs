@@ -22,7 +22,7 @@ public class lineCollider : MonoBehaviour
     void Update()
     {
         if (activeMode) { 
-            if (Physics.Linecast(transform.position, transform.GetComponent<SpringJoint>().connectedBody.transform.position, LayerMask.GetMask("Solid")))
+            if (Physics.Linecast(transform.position, transform.parent.GetChild(int.Parse(transform.name) - 2).position, LayerMask.GetMask("Solid")))
             {
                 int ncut = int.Parse(transform.name) - 1;
                 healthBar.TakeDamage(0.035f);
