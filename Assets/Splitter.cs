@@ -17,6 +17,7 @@ public class Splitter : MonoBehaviour
     public GameObject player;
 
     public bool computationSaveMode;
+    //no use now
 
     private bool hasMouseDown = false;
 
@@ -28,10 +29,12 @@ public class Splitter : MonoBehaviour
 
     private float vibeTime = 0f;
 
+    GameObject[] hairParts;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        hairParts = GameObject.FindGameObjectsWithTag("part");
     }
 
     // Update is called once per frame
@@ -69,6 +72,7 @@ public class Splitter : MonoBehaviour
             // Debug.Log(cam.transform.forward);
             //float pointingY = cam.transform.forward.z * -180;
             //transform.rotation = Quaternion.Euler(pointingX, pointingY, 0);
+
             Cut();
             hasMouseDown = false;
         }
@@ -95,10 +99,13 @@ public class Splitter : MonoBehaviour
 
             Vector3 dif = new Vector3(newbladeRotation.x - bladeRotation.x, newbladeRotation.y - bladeRotation.y, newbladeRotation.z - bladeRotation.z);
             float difsquare = Mathf.Abs(dif.y * 100);
-            Debug.Log(difsquare);
+            //Debug.Log(difsquare);
             if (difsquare > cutThreshhold)
             {
-
+                foreach(GameObject part in hairParts)
+                {
+                    part.GetComponent<lineCollider>().activeMode = true;
+                }
                 Cut();
 
             }
@@ -111,7 +118,7 @@ public class Splitter : MonoBehaviour
     private void Cut()
     {
        
-        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid")));
+        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid","Hair")));
         foreach (Collider c in colliders)
         {
 
@@ -128,23 +135,22 @@ public class Splitter : MonoBehaviour
             // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
 
             // only do full slice while computationSaveMode is off
-            if (!c.CompareTag("part") || !computationSaveMode)
+     
+            SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
+            if (hull != null)
             {
-                SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
-                if (hull != null)
-                {
-                    GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
-                    GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
-                    GameObject[] objs = new GameObject[] { lower, upper };
+                GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
+                GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
+                GameObject[] objs = new GameObject[] { lower, upper };
 
-                    foreach (GameObject obj in objs)
-                    {
-                        Rigidbody rb = obj.AddComponent<Rigidbody>();
-                        obj.AddComponent<MeshCollider>().convex = true;
-                        rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
-                    }
+                foreach (GameObject obj in objs)
+                {
+                    Rigidbody rb = obj.AddComponent<Rigidbody>();
+                    obj.AddComponent<MeshCollider>().convex = true;
+                    rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
                 }
             }
+            
             cut = true;
         }
     }
