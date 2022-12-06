@@ -59,7 +59,6 @@ public class hairConfig5 : MonoBehaviour
             decay *= decayfactor;
 
             linear.spring = positionSpring* (0.5f - Mathf.Abs(transform.rotation.x));
-            Debug.Log(positionSpring * (0.5f - Mathf.Abs(transform.rotation.x)));
             linear.damper = 1;
             config.linearLimitSpring = linear;
         }

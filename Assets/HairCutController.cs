@@ -9,6 +9,8 @@ public class HairCutController : MonoBehaviour
     public bool isCut;
     public System.DateTime cutTime;
     private bool isKinematic;
+    public float floorheight;
+        
     void Start()
     {
         isCut = false;
@@ -16,12 +18,19 @@ public class HairCutController : MonoBehaviour
         cutTime = System.DateTime.Now;
     }
 
+    void record()
+    {
+        isCut = true;
+        cutTime = System.DateTime.Now;
+ 
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (isCut && !isKinematic)
         {
-            if (cutTime.AddSeconds(10) < System.DateTime.Now)
+            if (cutTime.AddSeconds(10) < System.DateTime.Now && transform.position.y - floorheight <= 2f)
             {
                 isKinematic = true;
                 transform.GetComponent<Rigidbody>().isKinematic = true;
