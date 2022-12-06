@@ -6,13 +6,13 @@ public class GrappleRopeController : MonoBehaviour
 {
 
 	private LineRenderer lineRenderer;
-	private GameObject connected;
+	private Transform connected;
 
 	// Use this for initialization
 	void Start()
 	{
 		lineRenderer = transform.GetComponent<LineRenderer>();
-		connected = transform.GetComponent<SpringJoint>().connectedBody.gameObject;
+		connected = transform.parent.GetChild(int.Parse(transform.name) - 2);
 		lineRenderer.positionCount = 2;
 	}
 
@@ -20,6 +20,6 @@ public class GrappleRopeController : MonoBehaviour
 	void Update()
 	{
 		lineRenderer.SetPosition(0, transform.position);
-		lineRenderer.SetPosition(1, connected.transform.position);
+		lineRenderer.SetPosition(1, connected.position);
 	}
 }
