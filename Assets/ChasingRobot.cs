@@ -7,10 +7,12 @@ public class ChasingRobot : MonoBehaviour
 
     public Transform target;
     public GameObject prefab;
-    public float deltaTime = 2f;
-    public float force = 1000;
-    public int damping = 5;
+    public float deltaTime = 3f;
+    public float force = 1200;
+    public int damping = 7;
 
+    public int lowestHeight = 12;
+    public int minimumDis = 6;
     public Transform bulletpoint;
 
     private float speed = 0.8f;
@@ -27,12 +29,17 @@ public class ChasingRobot : MonoBehaviour
         {
             UpdateRotation();
             //Debug.Log("rotation " + transform.rotation);
-            if (Vector3.Distance(transform.position, target.position) < 0.05f)
+
+            if (Vector3.Distance(transform.position, target.position) < minimumDis)
             {
                 return;
             }
             var step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            Vector3 temp = Vector3.MoveTowards(transform.position, target.position, step);
+            temp.y = Mathf.Max(lowestHeight, temp.y);
+            transform.position = temp;
+
+         
             seconds += Time.deltaTime;
             if (seconds >= deltaTime)
             {
@@ -55,7 +62,8 @@ public class ChasingRobot : MonoBehaviour
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.useGravity = false;
         //rb.AddRelativeForce(force * new Vector3(0, 0, 1));
-        rb.AddForce(force * transform.forward);
+       
+        rb.AddForce(force * (1f + 0.8f * Random.value) * transform.forward);
     }
 
 }
