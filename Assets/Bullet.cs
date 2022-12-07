@@ -7,13 +7,12 @@ public class Bullet : MonoBehaviour
     public float damage = 10f;
     public float timeToDisappear = 5f;
 
-    private HealthBar playerHealthBar;
     private float timer = 0f;
     private bool useGravity = false;
     // Start is called before the first frame update
     void Start()
     {
-        playerHealthBar = GameObject.Find("PlayerHealthBar").GetComponent<HealthBar>();
+        
     }
 
     // Update is called once per frame
@@ -23,7 +22,7 @@ public class Bullet : MonoBehaviour
         {
             if (timer >= timeToDisappear)
             {
-                transform.gameObject.SetActive(false);
+                Destroy(gameObject);
                 return;
             }
             timer += Time.deltaTime;
@@ -33,9 +32,10 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Output the Collider's GameObject's name
+        if (collision.collider.tag == "Enemy") return; 
         if (collision.collider.tag == "Player")
         {
-            playerHealthBar.TakeDamage(damage);
+            BattleManage.Instance.playerTakeDamage(damage);
         }
         transform.GetComponent<Rigidbody>().useGravity = true;
         useGravity = true;

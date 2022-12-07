@@ -10,6 +10,9 @@ public class ChasingRobot : MonoBehaviour
     public float deltaTime = 2f;
     public float force = 1000;
     public int damping = 5;
+
+    public Transform bulletpoint;
+
     private float speed = 0.8f;
     private float seconds = 0f;
     // Start is called before the first frame update
@@ -48,7 +51,7 @@ public class ChasingRobot : MonoBehaviour
 
     private void ThrowObject()
     {
-        GameObject obj = Instantiate(prefab, transform.position, transform.rotation);
+        GameObject obj = Instantiate(prefab, bulletpoint.position, transform.rotation);
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.useGravity = false;
         //rb.AddRelativeForce(force * new Vector3(0, 0, 1));

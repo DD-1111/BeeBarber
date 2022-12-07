@@ -5,7 +5,7 @@ using UnityEngine;
 public class lineCollider : MonoBehaviour
 {
     int partNumber;
-    HealthBar healthBar;
+
     public bool activeMode = true;
     [SerializeField]
     public GameObject prefabpart;
@@ -17,8 +17,6 @@ public class lineCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject g = GameObject.Find("Healthbar");
-        healthBar = g.GetComponent<HealthBar>();
         partNumber = transform.parent.childCount;
     }
 
@@ -31,7 +29,7 @@ public class lineCollider : MonoBehaviour
                 Debug.Log("Triggered");
 
                 int ncut = int.Parse(transform.name) - 1;
-                healthBar.TakeDamage(0.035f);
+                BattleManage.Instance.EnemeyTakeDamage(0.035f);
                 Transform tmptrans = transform.parent.GetChild(ncut);
                 GameObject tmp;
                 tmp = Instantiate(prefabpart, new Vector3(tmptrans.position.x, tmptrans.position.y - 1.6f, tmptrans.position.z), Quaternion.identity, transform.parent.transform);
