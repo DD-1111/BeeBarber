@@ -85,10 +85,12 @@ public class HairManager : MonoBehaviour
                 float xPos = radius * Mathf.Cos(angleInRadian);
                 float zPos = radius * Mathf.Sin(angleInRadian);
                 lastList[count].transform.position = new Vector3(center.x + xPos, yPos, center.z + zPos);
-                Vector3 loopPos = lastList[count].transform.position - center;
-                GameObject hair = lastList[count].GetComponent<HairTracker>().hair;
-                hair.transform.rotation = Quaternion.Euler(50 * loopPos);
-                hair.GetComponent<hairConfig5>().apply = true;
+                
+                //Vector3 loopPos = lastList[count].transform.position - center;
+                //GameObject hair = lastList[count].GetComponent<HairTracker>().hair;
+                //hair.transform.rotation = Quaternion.Euler(50 * loopPos);
+                //hair.GetComponent<hairConfig5>().apply = true;
+
                 count++;
                 if (count >= n)
                 {

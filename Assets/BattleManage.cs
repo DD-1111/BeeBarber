@@ -56,6 +56,7 @@ public class BattleManage : MonoBehaviour
         enemyCap.GetComponent<ChasingRobot>().enabled = true;
         enemyHealth = 100f;
         enemyHealthBar.SetHealth(enemyHealth);
+        GameObject.FindGameObjectWithTag("disappear").SetActive(false);
     }
 }   
 

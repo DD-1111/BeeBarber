@@ -110,8 +110,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 23.682472, z: 2.2971911}
-  - {x: 1.050396, y: 21.46379, z: 2.2971911}
+  - {x: -1.009802, y: 20.004416, z: 1.1251113}
+  - {x: -1.009802, y: 18.986122, z: 0.6849773}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -400,8 +400,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 19.81, z: 2.2971911}
-  - {x: 1.050396, y: 18.24, z: 2.2971911}
+  - {x: -1.009802, y: 18.227095, z: 0.35690475}
+  - {x: -1.009802, y: 17.506523, z: 0.045454025}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -815,8 +815,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 16.61, z: 2.2971911}
-  - {x: 1.050396, y: 15.26, z: 2.3}
+  - {x: -1.009802, y: 16.758413, z: -0.2778995}
+  - {x: -1.009802, y: 16.138256, z: -0.5444186}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1105,8 +1105,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 13.75, z: 2.3}
-  - {x: 1.050396, y: 12.440001, z: 2.3}
+  - {x: -1.009802, y: 15.445223, z: -0.8439667}
+  - {x: -1.009802, y: 14.843981, z: -1.1038396}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1395,8 +1395,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 18.24, z: 2.2971911}
-  - {x: 1.050396, y: 16.61, z: 2.2971911}
+  - {x: -1.009802, y: 17.506523, z: 0.045454025}
+  - {x: -1.009802, y: 16.758413, z: -0.2778995}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1627,7 +1627,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &7638974204790886192
 MonoBehaviour:
@@ -1686,8 +1686,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 28.279999, z: 2.2971911}
-  - {x: 1.050396, y: 25.92548, z: 2.2971911}
+  - {x: -1.009802, y: 22.114508, z: 2.037151}
+  - {x: -1.009802, y: 21.033873, z: 1.570071}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1989,8 +1989,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 25.92548, z: 2.2971911}
-  - {x: 1.050396, y: 23.682472, z: 2.2971911}
+  - {x: -1.009802, y: 21.033873, z: 1.570071}
+  - {x: -1.009802, y: 20.004416, z: 1.1251113}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2279,8 +2279,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 15.26, z: 2.3}
-  - {x: 1.050396, y: 13.75, z: 2.3}
+  - {x: -1.009802, y: 16.138256, z: -0.5444186}
+  - {x: -1.009802, y: 15.445223, z: -0.8439667}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2569,8 +2569,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.050396, y: 21.46379, z: 2.2971911}
-  - {x: 1.050396, y: 19.81, z: 2.2971911}
+  - {x: -1.009802, y: 18.986122, z: 0.6849773}
+  - {x: -1.009802, y: 18.227095, z: 0.35690475}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

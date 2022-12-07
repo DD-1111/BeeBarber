@@ -28,7 +28,7 @@ public class lineCollider : MonoBehaviour
             {
 
                 int ncut = int.Parse(transform.name) - 1;
-                BattleManage.Instance.EnemeyTakeDamage(0.035f);
+                BattleManage.Instance.EnemeyTakeDamage(0.65f);
                 Transform tmptrans = transform.parent.GetChild(ncut);
                 GameObject dummy = Instantiate(prefabpart, new Vector3(tmptrans.position.x, tmptrans.position.y - 1.6f, tmptrans.position.z), Quaternion.identity, transform.parent.transform);
                 tmptrans.GetComponent<ConfigurableJoint>().connectedBody = dummy.GetComponent<Rigidbody>();
@@ -54,6 +54,13 @@ public class lineCollider : MonoBehaviour
                    
                 }
                 
+                if (ncut == 9)
+                {
+                    var temp = gameObject.GetComponent<Rigidbody>();
+                    temp.isKinematic = false;
+             
+
+                }
                 activeMode = false;
             }
             //activeMode = false;
