@@ -6,7 +6,7 @@ public class ChasingRobot : MonoBehaviour
 {
 
     public Transform target;
-    private float speed = 0.5f;
+    private float speed = 0.8f;
     private int damping = 2;
     // Start is called before the first frame update
     void Start()
