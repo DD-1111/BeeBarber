@@ -26,28 +26,34 @@ public class lineCollider : MonoBehaviour
         if (activeMode) { 
             if (Physics.Linecast(transform.position, connectedbody.transform.position, LayerMask.GetMask("Saber")))
             {
-                Debug.Log("Triggered");
 
                 int ncut = int.Parse(transform.name) - 1;
                 BattleManage.Instance.EnemeyTakeDamage(0.035f);
                 Transform tmptrans = transform.parent.GetChild(ncut);
-                GameObject tmp;
-                tmp = Instantiate(prefabpart, new Vector3(tmptrans.position.x, tmptrans.position.y - 1.6f, tmptrans.position.z), Quaternion.identity, transform.parent.transform);
-                tmptrans.GetComponent<ConfigurableJoint>().connectedBody = tmp.GetComponent<Rigidbody>();
-                connectedbody = tmp;
-                HairCutController hairCutController = tmp.GetComponent<HairCutController>();
+                GameObject dummy = Instantiate(prefabpart, new Vector3(tmptrans.position.x, tmptrans.position.y - 1.6f, tmptrans.position.z), Quaternion.identity, transform.parent.transform);
+                tmptrans.GetComponent<ConfigurableJoint>().connectedBody = dummy.GetComponent<Rigidbody>();
+                connectedbody = dummy;
+                HairCutController hairCutController = dummy.GetComponent<HairCutController>();
                 hairCutController.Record();
+                dummy.GetComponent<Rigidbody>().AddExplosionForce(40, tmptrans.position, 20);
                 // break joint of top joint, and initialized a dummy duplicated.
                 for (int i = 0; i < ncut; i++)
                 {
-                    tmp = transform.parent.GetChild(i).gameObject;
+                    GameObject tmp = transform.parent.GetChild(i).gameObject;
                     SphereCollider sc = tmp.AddComponent<SphereCollider>() as SphereCollider;
                     sc.center = new Vector3(0f, 0f, 0f);
                     sc.radius = 0.1f;
 
+                    if (i == 0)
+                    {
+                        tmp.GetComponent<Rigidbody>().AddExplosionForce(40, tmptrans.position, 20);
+                    }
+
                     hairCutController = tmp.GetComponent<HairCutController>();
                     hairCutController.Record();
+                   
                 }
+                
                 activeMode = false;
             }
             //activeMode = false;
