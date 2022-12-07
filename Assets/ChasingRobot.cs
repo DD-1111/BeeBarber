@@ -6,7 +6,8 @@ public class ChasingRobot : MonoBehaviour
 {
 
     public Transform target;
-    private float speed = 1.0f;
+    private float speed = 0.5f;
+    private int damping = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class ChasingRobot : MonoBehaviour
     {
         if (target)
         {
+            UpdateRotation();
             if (Vector3.Distance(transform.position, target.position) < 0.05f)
             {
                 return;
@@ -27,4 +29,12 @@ public class ChasingRobot : MonoBehaviour
         }
 
     }
+
+    private void UpdateRotation() {
+        var lookPos = target.position - transform.position;
+        //lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
+    }
+
 }
