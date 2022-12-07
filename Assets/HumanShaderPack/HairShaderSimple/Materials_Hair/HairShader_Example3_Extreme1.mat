@@ -24,6 +24,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 9a79aa322f67842448907ade5c0439ed, type: 3}
         m_Scale: {x: 14.51, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseSpecColGlossa:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,6 +46,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CutoutTipGrad1TipGrad2:
+        m_Texture: {fileID: 2800000, guid: db53956d7bc64a542926b4d2aa7b036b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -108,6 +124,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalMap1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -116,20 +140,45 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _hairNorm:
         m_Texture: {fileID: 2800000, guid: 54b49d85c7ca61849a5f027999939bb9, type: 3}
         m_Scale: {x: 50, y: 0.1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - PixelSnap: 0
     - _AO_boost: 1
+    - _AlphaClip: 0
     - _Base_Gloss: 0.5555561
+    - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
     - _ColorInhheritance: 2.39
+    - _ColorRampOffset: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _Detail1_strength: 0.5631068
     - _Detail2_strength: 0.5
     - _Detail3_strength: 0.8241895
+    - _DetailAlbedoMapScale: 1
     - _DetailGloss1: 0.6407767
     - _DetailGloss2: 0.7112322
     - _DetailGloss3: 0.4144778
@@ -137,12 +186,16 @@ Material:
     - _Dirt_Gloss: 0.1
     - _Dirt_Top: 0
     - _DstBlend: 0
+    - _EnableExternalAlpha: 0
+    - _EnvironmentReflections: 1
     - _FastSlow: 1
     - _Gloss: 0.78
     - _GlossMapScale: 1
     - _Gloss_Variation: 1.2
     - _Glossiness: 0.48
     - _GlossyReflections: 1
+    - _Grad1_Power: 1
+    - _Grad2_Power: 0.446602
     - _HairSpecCol_Mixing: 6.11
     - _Hairs: 1
     - _Metallic: 0
@@ -152,18 +205,27 @@ Material:
     - _Norm1Strength: 1
     - _Norm2Strength: 1
     - _Norm3Strength: 1
+    - _Normal_Blending: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Push: 0.4
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _SampleGI: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
+    - _SpecColorInheritance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Surface: 0
     - _TipAmount: 2.11
     - _TipHighlighter: 1.85
     - _TipTransmissionBoost: 1.25
     - _UVSec: 0
+    - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorGloss: {r: 0, g: 0, b: 0, a: 0.584}
     - _Base_Color: {r: 33333, g: 1, b: 1, a: 1}
     - _Base_SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -174,17 +236,25 @@ Material:
     - _Dirt_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Dirt_SpecCol: {r: 0.128, g: 0.134, b: 0.147, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _Grad1_Color: {r: 1, g: 0, b: 0, a: 1}
+    - _Grad2_Color: {r: 0, g: 0.5, b: 1, a: 1}
     - _HairCol: {r: 0.125, g: 0.11121324, b: 0.11121324, a: 1}
+    - _Hair_ColorGloss: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Mask1_color: {r: 1, g: 0.007352948, b: 0.007352948, a: 1}
     - _Mask2_color: {r: 0.05082181, g: 0.6911765, b: 0.1082329, a: 1}
     - _Mask3_color: {r: 0.04974049, g: 0.3912004, b: 0.6764706, a: 1}
+    - _NormalAngleShift: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _NormalShift: {r: 0, g: 0.85294116, b: 0.21764691, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShineColor: {r: 0.9485294, g: 0.6868661, b: 0, a: 1}
     - _ShineColorExtraGloss: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _ShineColor_ToneBoost: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _ShineColor_ToneBost: {r: 0.08823532, g: 0.08823532, b: 0.08823532, a: 0.278}
     - _SpecColor: {r: 0.18382353, g: 0.15339758, b: 0.1148897, a: 1}
     - _TipColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Tip_Color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+    - _TipColor_Mix: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Tip_Color: {r: 0.3773585, g: 0.36810255, b: 0.36810255, a: 1}
     - _Tip_ColorEffecta: {r: 1, g: 0, b: 0, a: 1}
     - _node_6595: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []

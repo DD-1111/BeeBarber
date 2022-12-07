@@ -21,6 +21,14 @@ public class hairConfig5 : MonoBehaviour
 
     [SerializeField]
     float minimumSpring = 2;
+
+    [SerializeField]
+    float minimusDamper = 1f;
+
+    [SerializeField]
+    [Range(0.5f, 5)]
+    float massCoefficient = 1f;
+
     //[SerializeField]
     //bool angularX = true;
     //[SerializeField]
@@ -35,32 +43,30 @@ public class hairConfig5 : MonoBehaviour
 
 
         float decay = 1;
+        float damperDecay = 1;
+        Transform child = transform.GetChild(0);
+        child.GetComponent<Rigidbody>().mass = 0.43f * massCoefficient;
         for (int i = transform.childCount - 1; i > 0; i--)
         {
             JointDrive drive = new JointDrive();
             SoftJointLimitSpring linear = new SoftJointLimitSpring();
-
-            if (positionSpring * decay > minimumSpring)
-            {
-                drive.positionSpring = positionSpring * decay;
-                drive.positionDamper = positionDamper * decay;
-                drive.maximumForce = float.MaxValue;
-            } else
-            {
-                drive.positionSpring = minimumSpring;
-                drive.positionDamper = positionDamper;
-                drive.maximumForce = float.MaxValue;
-            }
-            Transform child = transform.GetChild(i);
+     
+            drive.positionDamper = Mathf.Max(positionDamper * damperDecay, minimusDamper);
+            drive.positionSpring = Mathf.Max(positionSpring * decay, minimumSpring);
+            drive.maximumForce = float.MaxValue;
+            child = transform.GetChild(i);
             ConfigurableJoint config = child.GetComponent<ConfigurableJoint>();
             config.xDrive = drive;
             config.yDrive = drive;
             config.zDrive = drive;
             decay *= decayfactor;
+            damperDecay *= (decayfactor + 1f) / 2f;
 
             linear.spring = positionSpring* (0.5f - Mathf.Abs(transform.rotation.x));
             linear.damper = 1;
             config.linearLimitSpring = linear;
+
+            child.GetComponent<Rigidbody>().mass = ((1.3f + Random.value * 2) * 0.1f) * massCoefficient;
         }
     }
 
