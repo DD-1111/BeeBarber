@@ -1590,6 +1590,7 @@ GameObject:
   - component: {fileID: 6264760703774745055}
   - component: {fileID: 6994492845799227157}
   - component: {fileID: 2328958484403098329}
+  - component: {fileID: 6182554924690617055}
   m_Layer: 6
   m_Name: 10
   m_TagString: part
@@ -1865,6 +1866,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6182554924690617055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781961976634040256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b698d5c1cb02c47488a0beedd4871106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hair: {fileID: 3926371541542926600}
 --- !u!1 &8069716730403287523
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class HairManager : MonoBehaviour
     private int n;
     private int row;
     private int col;
+    private int frame = 0;
     void Start()
     {
         GameObject[] temp = GameObject.FindGameObjectsWithTag("part");
@@ -45,23 +46,18 @@ public class HairManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        Vector3 curPos = transform.position;
-        int count = 0;
-        float rowInterv = arrangeLength / row;
-        float colInterv = arrangeWidth / col;
-        for (int i = 0; i < row; i++)
-        {
-            for (int j = 0; j < col; j++)
-            {
-                if (count < n)
-                {
-                    lastList[count].transform.position = curPos + new Vector3(rowInterv * i, 0, colInterv * j);
-                    count++;
-                }
-            }
-        }*/
-        //UpdateInSphere();
+        //if (frame == 0)
+        //{
+        //    Vector3 center = transform.position;
+        //    for (int i = 0; i < lastList.Length; i++)
+        //    {
+        //        Vector3 loopPos = lastList[i].transform.position - center;
+        //        Debug.Log("loopPos " + loopPos);
+        //        lastList[i].transform.rotation = Quaternion.Euler(loopPos);
+        //        Debug.Log("rotation: " + Quaternion.Euler(loopPos));
+        //    }
+        //}
+        //frame++;
     }
 
     private static float MAX_RADIUS = 3f;
@@ -89,6 +85,10 @@ public class HairManager : MonoBehaviour
                 float xPos = radius * Mathf.Cos(angleInRadian);
                 float zPos = radius * Mathf.Sin(angleInRadian);
                 lastList[count].transform.position = new Vector3(center.x + xPos, yPos, center.z + zPos);
+                Vector3 loopPos = lastList[count].transform.position - center;
+                GameObject hair = lastList[count].GetComponent<HairTracker>().hair;
+                hair.transform.rotation = Quaternion.Euler(50 * loopPos);
+                hair.GetComponent<hairConfig5>().apply = true;
                 count++;
                 if (count >= n)
                 {
