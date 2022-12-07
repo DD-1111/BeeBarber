@@ -32,8 +32,8 @@ public class OVRPlayerController : MonoBehaviour
 	public float flyThreshhold = 5f;
 	public float dashThresholdz = 3f;
 	public float dashThresholdArm = 5f;
-	private bool dashAvailable;
-	
+	public bool dashAvailable;
+	public float dashSpeed = 3f;
 
 	public Transform headAnchor;
 	private Quaternion hRotation;
@@ -348,29 +348,46 @@ public class OVRPlayerController : MonoBehaviour
 			if (second >= dashCD)
 			{
 				dashAvailable = true;
-				leftHandCube.GetComponent<Renderer>().material.color = new Color(1, 120f / 255f, 0);
+				leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
 				second = 0;
 			}
 		}
 
-		if (dashAvailable)
+		if (Time.frameCount % 2 == 0)
 		{
-			float hdif = headRotation.z - hRotation.z;
-			bool rdash = hdif < -dashThresholdz;
-			bool ldash = hdif > dashThresholdz;
-			if (ldash)
+			if (dashAvailable)
 			{
-				Dashleft();
+				float hdif = (headRotation.z - hRotation.z) * 100;
+				bool rdash = hdif < -dashThresholdz;
+				bool ldash = hdif > dashThresholdz;
+				if (ldash)
+				{
+					//Quaternion ort = transform.rotation;
+					//Vector3 ortEuler = ort.eulerAngles;
+					//ortEuler.z = ortEuler.x = 0f;
+					//ort = Quaternion.Euler(ortEuler);
+
+					//moveDirection += ort * (new Vector3(-dashSpeed, 0, 0) * SimulationRate * Time.deltaTime);
+					//dashAvailable = false;
+					//leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+					Dashleft();
+				}
+				else if (rdash)
+				{
+					Dashright();
+					//Quaternion ort = transform.rotation;
+					//Vector3 ortEuler = ort.eulerAngles;
+					//ortEuler.z = ortEuler.x = 0f;
+					//ort = Quaternion.Euler(ortEuler);
+
+					//moveDirection += ort * (new Vector3(dashSpeed, 0, 0) * SimulationRate * Time.deltaTime);
+					//dashAvailable = false;
+					//leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+				}
 			}
-			else if (rdash)
-			{
-				Dashright();
-			}
-			dashAvailable = false;
-			leftHandCube.GetComponent<Renderer>().material.color = new Color(1, 1, 1);
 		}
 
-		if (Time.frameCount % 2 == 0)
+		if (Time.frameCount % 3 == 0)
 		{
 
 			float ldif = leftHandRotation.x - lRotation.x;
@@ -632,43 +649,58 @@ public class OVRPlayerController : MonoBehaviour
 		return true;
 	}
 
-	public bool Dashfwd()
-	{
-		float v = transform.lossyScale.z * JumpForce * 2;
-		if (v > flyspeedLimit)
-			return false;
+	//public bool Dashfwd()
+	//{
+	//	float v = transform.lossyScale.z * JumpForce * 2;
+	//	if (v > flyspeedLimit)
+	//		return false;
 
-		MoveThrottle += new Vector3(0, 0, v);
-		return true;
-	}
+	//	MoveThrottle += new Vector3(0, 0, v);
+	//	dashAvailable = false;
+	//	leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+	//	return true;
+	//}
 
-	public bool Dashbwd()
-	{
-		float v = transform.lossyScale.z * JumpForce;
-		if (v > flyspeedLimit)
-			return false;
+	//public bool Dashbwd()
+	//{
+	//	float v = transform.lossyScale.z * JumpForce;
+	//	if (v > flyspeedLimit)
+	//		return false;
 
-		MoveThrottle += new Vector3(0, 0, -v);
-		return true;
-	}
+	//	MoveThrottle += new Vector3(0, 0, -v);
+	//	dashAvailable = false;
+	//	leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+	//	return true;
+	//}
 
 	public bool Dashleft()
 	{
-		float v = transform.lossyScale.x * JumpForce;
+		float v = transform.lossyScale.x * JumpForce * 2;
 		if (v > flyspeedLimit)
 			return false;
 
-		MoveThrottle += new Vector3(-v, 0, 0);
+		Quaternion ort = transform.rotation;
+		Vector3 ortEuler = ort.eulerAngles;
+		ortEuler.z = ortEuler.x = 0f;
+		ort = Quaternion.Euler(ortEuler);
+		MoveThrottle += ort * new Vector3(-v, 0, 0);
+		dashAvailable = false;
+		leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
 		return true;
 	}
 
 	public bool Dashright()
 	{
-		float v = transform.lossyScale.x * JumpForce;
+		float v = transform.lossyScale.x * JumpForce * 2;
 		if (v > flyspeedLimit)
 			return false;
-
-		MoveThrottle += new Vector3(v, 0, 0);
+		Quaternion ort = transform.rotation;
+		Vector3 ortEuler = ort.eulerAngles;
+		ortEuler.z = ortEuler.x = 0f;
+		ort = Quaternion.Euler(ortEuler);
+		MoveThrottle += ort * new Vector3(v, 0, 0);
+		dashAvailable = false;
+		leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
 		return true;
 	}
 
