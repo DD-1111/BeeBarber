@@ -30,15 +30,24 @@ public class OVRPlayerController : MonoBehaviour
 	public GameObject leftHand;
 	public GameObject rightHand;
 	public float flyThreshhold = 5f;
+	public float dashThresholdz = 3f;
+	public float dashThresholdArm = 5f;
+	private bool dashAvailable;
+	
 
+	public Transform headAnchor;
+	private Quaternion hRotation;
 	private Quaternion lRotation;
 	private Quaternion rRotation;
+	public int dashCD = 5;
+	private float second = 0f;
+	public GameObject leftHandCube;
 
 	public float flyspeedLimit = 6f;
 	/// <summary>
 	/// The rate acceleration during movement.
 	/// </summary>
-	public float Acceleration = 0.1f;
+	public float Acceleration = 0.15f;
 
 	/// <summary>
 	/// The rate of damping on movement.
@@ -328,9 +337,40 @@ public class OVRPlayerController : MonoBehaviour
 
 
 		// Flap to jump
+		// Dash
 		Quaternion leftHandRotation = leftHand.transform.rotation;
 		Quaternion rightHandRotation = rightHand.transform.rotation;
-		if (Time.frameCount % 3 == 0)
+		Quaternion headRotation = headAnchor.transform.rotation;
+
+		if (!dashAvailable)
+		{
+			second += Time.deltaTime;
+			if (second >= dashCD)
+			{
+				dashAvailable = true;
+				leftHandCube.GetComponent<Renderer>().material.color = new Color(1, 120f / 255f, 0);
+				second = 0;
+			}
+		}
+
+		if (dashAvailable)
+		{
+			float hdif = headRotation.z - hRotation.z;
+			bool rdash = hdif < -dashThresholdz;
+			bool ldash = hdif > dashThresholdz;
+			if (ldash)
+			{
+				Dashleft();
+			}
+			else if (rdash)
+			{
+				Dashright();
+			}
+			dashAvailable = false;
+			leftHandCube.GetComponent<Renderer>().material.color = new Color(1, 1, 1);
+		}
+
+		if (Time.frameCount % 2 == 0)
 		{
 
 			float ldif = leftHandRotation.x - lRotation.x;
@@ -342,7 +382,9 @@ public class OVRPlayerController : MonoBehaviour
 			{
 				Jump();
 			}
+
 		}
+		hRotation = headRotation;
 		lRotation = leftHandRotation;
 		rRotation = rightHandRotation;
 
@@ -581,13 +623,55 @@ public class OVRPlayerController : MonoBehaviour
 	public bool Jump()
 	{
 		//Debug.Log(transform.lossyScale.y * JumpForce);
-		if (transform.lossyScale.y * JumpForce > flyspeedLimit)
+		float v = transform.lossyScale.y * JumpForce;
+		if (v > flyspeedLimit)
 			return false;
 
-		MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
+		MoveThrottle += new Vector3(0, v, 0);
 
 		return true;
 	}
+
+	public bool Dashfwd()
+	{
+		float v = transform.lossyScale.z * JumpForce * 2;
+		if (v > flyspeedLimit)
+			return false;
+
+		MoveThrottle += new Vector3(0, 0, v);
+		return true;
+	}
+
+	public bool Dashbwd()
+	{
+		float v = transform.lossyScale.z * JumpForce;
+		if (v > flyspeedLimit)
+			return false;
+
+		MoveThrottle += new Vector3(0, 0, -v);
+		return true;
+	}
+
+	public bool Dashleft()
+	{
+		float v = transform.lossyScale.x * JumpForce;
+		if (v > flyspeedLimit)
+			return false;
+
+		MoveThrottle += new Vector3(-v, 0, 0);
+		return true;
+	}
+
+	public bool Dashright()
+	{
+		float v = transform.lossyScale.x * JumpForce;
+		if (v > flyspeedLimit)
+			return false;
+
+		MoveThrottle += new Vector3(v, 0, 0);
+		return true;
+	}
+
 
 	/// <summary>
 	/// Stop this instance.
