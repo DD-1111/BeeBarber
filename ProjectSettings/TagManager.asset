@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hair
   - part
+  - Bullet
   layers:
   - Default
   - TransparentFX

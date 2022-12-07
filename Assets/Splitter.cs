@@ -118,7 +118,7 @@ public class Splitter : MonoBehaviour
     private void Cut()
     {
        
-        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid","Hair")));
+        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid","Hair","Saber")));
         foreach (Collider c in colliders)
         {
 

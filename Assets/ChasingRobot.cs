@@ -50,6 +50,8 @@ public class ChasingRobot : MonoBehaviour
     {
         GameObject obj = Instantiate(prefab, transform.position, transform.rotation);
         Rigidbody rb = obj.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        //rb.AddRelativeForce(force * new Vector3(0, 0, 1));
         rb.AddForce(force * transform.forward);
     }
 

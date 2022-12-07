@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float damage = 10f;
-    public float force = 10.0f;
     public float timeToDisappear = 5f;
 
     private HealthBar playerHealthBar;
@@ -28,27 +27,20 @@ public class Bullet : MonoBehaviour
                 return;
             }
             timer += Time.deltaTime;
-        } else if (IsCollided())
+        } 
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //Output the Collider's GameObject's name
+        if (collision.collider.tag == "Player")
         {
-            if (playerHealthBar && TouchPlayer())
-            {
-                playerHealthBar.TakeDamage(damage);
-            }
-            transform.GetComponent<Rigidbody>().useGravity = true;
-            useGravity = true;
+            playerHealthBar.TakeDamage(damage);
         }
+        transform.GetComponent<Rigidbody>().useGravity = true;
+        useGravity = true;
     }
 
     // Returns true if the bullet touch anything
-    bool IsCollided()
-    {
-        return true;
-    }
-
-    // Returns true if the bullet touch the player
-    bool TouchPlayer()
-    {
-        return true;
-    }
-
+   
 }

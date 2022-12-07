@@ -28,6 +28,8 @@ public class lineCollider : MonoBehaviour
         if (activeMode) { 
             if (Physics.Linecast(transform.position, connectedbody.transform.position, LayerMask.GetMask("Saber")))
             {
+                Debug.Log("Triggered");
+
                 int ncut = int.Parse(transform.name) - 1;
                 healthBar.TakeDamage(0.035f);
                 Transform tmptrans = transform.parent.GetChild(ncut);
