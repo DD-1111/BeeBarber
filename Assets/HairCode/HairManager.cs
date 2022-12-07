@@ -35,6 +35,11 @@ public class HairManager : MonoBehaviour
             col = (int)Mathf.Ceil((float)n / row);
             lastList = lastPartList.ToArray();
         }
+        foreach (GameObject lastone in lastList)
+        {
+            lastone.transform.SetParent(transform);
+        }
+        UpdateInSphere();
     }
 
     // Update is called once per frame
@@ -56,7 +61,7 @@ public class HairManager : MonoBehaviour
                 }
             }
         }*/
-        UpdateInSphere();
+        //UpdateInSphere();
     }
 
     private static float MAX_RADIUS = 3f;

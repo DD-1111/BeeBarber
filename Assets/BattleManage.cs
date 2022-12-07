@@ -11,6 +11,7 @@ public class BattleManage : MonoBehaviour
 
     public HealthBar enemyHealthBar;
     public float enemyHealth = 100;
+    public GameObject enemyCap;
 
     private void Awake()
     {
@@ -37,12 +38,24 @@ public class BattleManage : MonoBehaviour
     {
         enemyHealth = Mathf.Max(0, enemyHealth - damage);
         enemyHealthBar.SetHealth(enemyHealth);
+        if (enemyHealth <= 50f & enemyCap.GetComponent<hairMoving>().enabled)
+        {
+            changeState();
+        }
     }
 
     public void playerTakeDamage(float damage)
     {
         playerHealth = Mathf.Max(0, playerHealth - damage);
         playerHealthBar.SetHealth(playerHealth);
+    }
+
+    public void changeState()
+    {
+        enemyCap.GetComponent<hairMoving>().enabled = false;
+        enemyCap.GetComponent<ChasingRobot>().enabled = true;
+        enemyHealth = 100f;
+        enemyHealthBar.SetHealth(enemyHealth);
     }
 }   
 
