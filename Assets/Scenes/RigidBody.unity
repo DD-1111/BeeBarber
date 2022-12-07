@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1348,6 +1348,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 528672252995493237, guid: e5c055d080090485aa0d79d8ed10a645, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2032825156}
     - target: {fileID: 528672252995493238, guid: e5c055d080090485aa0d79d8ed10a645, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1828,6 +1832,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 1642569723}
+  maxHealth: 100
 --- !u!114 &119051155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17832,6 +17837,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 30852008}
+  maxHealth: 100
 --- !u!224 &1075074348
 RectTransform:
   m_ObjectHideFlags: 0
