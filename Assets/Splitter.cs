@@ -102,10 +102,10 @@ public class Splitter : MonoBehaviour
             //Debug.Log(difsquare);
             if (difsquare > cutThreshhold)
             {
-                foreach(GameObject part in hairParts)
-                {
-                    part.GetComponent<lineCollider>().activeMode = true;
-                }
+                //foreach(GameObject part in hairParts)
+                //{
+                //    part.GetComponent<lineCollider>().activeMode = true;
+                //}
                 Cut();
 
             }

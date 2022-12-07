@@ -6,7 +6,7 @@ public class lineCollider : MonoBehaviour
 {
     int partNumber;
     HealthBar healthBar;
-    public bool activeMode = false;
+    public bool activeMode = true;
     [SerializeField]
     public GameObject prefabpart;
 
@@ -48,9 +48,9 @@ public class lineCollider : MonoBehaviour
                     hairCutController = tmp.GetComponent<HairCutController>();
                     hairCutController.Record();
                 }
-                //activeMode = false;
+                activeMode = false;
             }
-            activeMode = false;
+            //activeMode = false;
         }
     }
 }

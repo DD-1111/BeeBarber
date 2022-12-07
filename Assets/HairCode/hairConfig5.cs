@@ -46,6 +46,7 @@ public class hairConfig5 : MonoBehaviour
         float damperDecay = 1;
         Transform child = transform.GetChild(0);
         child.GetComponent<Rigidbody>().mass = 0.43f * massCoefficient;
+
         for (int i = transform.childCount - 1; i > 0; i--)
         {
             JointDrive drive = new JointDrive();
