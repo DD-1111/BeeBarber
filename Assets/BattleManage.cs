@@ -13,6 +13,7 @@ public class BattleManage : MonoBehaviour
     public float enemyHealth = 100;
     public GameObject enemyCap;
 
+    public ScreenFlash screenFlash;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,6 +27,7 @@ public class BattleManage : MonoBehaviour
 
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -48,6 +50,12 @@ public class BattleManage : MonoBehaviour
     {
         playerHealth = Mathf.Max(0, playerHealth - damage);
         playerHealthBar.SetHealth(playerHealth);
+        Debug.Log("here");
+        if (screenFlash)
+        {
+            Debug.Log("Here");
+            StartCoroutine(screenFlash.Flash());
+        }
     }
 
     public void changeState()
