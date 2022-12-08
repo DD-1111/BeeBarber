@@ -20,6 +20,8 @@
 
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Controls the player's movement in virtual reality.
@@ -34,6 +36,8 @@ public class OVRPlayerController : MonoBehaviour
 	public float dashThresholdArm = 5f;
 	public bool dashAvailable;
 	public float dashSpeed = 3f;
+
+	public GameObject dashBar;
 
 	public Transform headAnchor;
 	private Quaternion hRotation;
@@ -345,6 +349,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (!dashAvailable)
 		{
 			second += Time.deltaTime;
+
 			if (second >= dashCD)
 			{
 				dashAvailable = true;

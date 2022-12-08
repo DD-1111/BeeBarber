@@ -15,7 +15,7 @@ public class ChasingRobot : MonoBehaviour
     public int minimumDis = 6;
     public Transform bulletpoint;
 
-    private float speed = 0.8f;
+    public float speed = 2f;
     private float seconds = 0f;
     // Start is called before the first frame update
     void Start()

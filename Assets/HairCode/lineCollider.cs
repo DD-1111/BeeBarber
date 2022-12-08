@@ -28,11 +28,12 @@ public class lineCollider : MonoBehaviour
             {
 
                 int ncut = int.Parse(transform.name) - 1;
-                BattleManage.Instance.EnemeyTakeDamage(0.65f);
+                BattleManage.Instance.EnemeyTakeDamage(0.45f);
                 Transform tmptrans = transform.parent.GetChild(ncut);
                 GameObject dummy = Instantiate(prefabpart, new Vector3(tmptrans.position.x, tmptrans.position.y - 1.6f, tmptrans.position.z), Quaternion.identity, transform.parent.transform);
                 tmptrans.GetComponent<ConfigurableJoint>().connectedBody = dummy.GetComponent<Rigidbody>();
                 connectedbody = dummy;
+   
                 HairCutController hairCutController = dummy.GetComponent<HairCutController>();
                 hairCutController.Record();
                 dummy.GetComponent<Rigidbody>().AddExplosionForce(40, tmptrans.position, 20);
