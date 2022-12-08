@@ -6,6 +6,7 @@ public class PlayerOnHit : MonoBehaviour
 {
     public ScreenFlash screenFlash;
     private float frames = 0f;
+    private bool flashed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,11 @@ public class PlayerOnHit : MonoBehaviour
     void Update()
     {
         frames += Time.deltaTime;
-        if (frames >= 2 && screenFlash)
+        if (frames >= 2 && screenFlash && !flashed)
         {
-            StartCoroutine(screenFlash.Flash());
+            StartCoroutine(screenFlash.Fade());
             frames = 0;
+            flashed = true;
         }
     }
 }

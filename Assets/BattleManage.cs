@@ -14,6 +14,7 @@ public class BattleManage : MonoBehaviour
     public GameObject enemyCap;
 
     public ScreenFlash screenFlash;
+    public ScreenFlash changeStateScreenFlash;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,6 +43,10 @@ public class BattleManage : MonoBehaviour
         enemyHealthBar.SetHealth(enemyHealth);
         if (enemyHealth <= 50f & enemyCap.GetComponent<hairMoving>().enabled)
         {
+            if (changeStateScreenFlash)
+            {
+                StartCoroutine(changeStateScreenFlash.Fade());
+            }
             changeState();
         }
     }
@@ -50,10 +55,8 @@ public class BattleManage : MonoBehaviour
     {
         playerHealth = Mathf.Max(0, playerHealth - damage);
         playerHealthBar.SetHealth(playerHealth);
-        Debug.Log("here");
         if (screenFlash)
         {
-            Debug.Log("Here");
             StartCoroutine(screenFlash.Flash());
         }
     }
