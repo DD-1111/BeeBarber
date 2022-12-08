@@ -15,7 +15,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - ground
+  - Ground
   - Water
   - UI
   - Hair
@@ -23,7 +23,7 @@ TagManager:
   - EnchantSaber
   - Solid
   - Hard
-  - 
+  - Player
   - 
   - 
   - 

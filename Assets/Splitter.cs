@@ -120,7 +120,18 @@ public class Splitter : MonoBehaviour
         Collider[] colliders;
         if (gameObject.tag == "Saber")
         {
-            colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber", "Hard")));
+            if (gameObject.name == "Saber")
+            {
+                colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber", "EnchantSaber", "Hard", "Ground","Player")));
+            } else
+            {
+                // execution mode
+                colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask( "Hair", "Saber", "EnchantSaber", "Ground", "Player")));
+                if (colliders.Length != 0)
+                {
+                    BattleManage.Instance.exe();
+                }
+            }
             foreach (Collider c in colliders)
             {
                 BattleManage.Instance.charge();
@@ -146,9 +157,9 @@ public class Splitter : MonoBehaviour
 
                 cut = true;
             }
-        } else
+        } else 
         {
-            colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber")));
+            colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber", "Ground", "Player")));
             if (colliders.Length != 0)
             {
                 Collider c = colliders[0];
@@ -156,7 +167,7 @@ public class Splitter : MonoBehaviour
   
                 if (c.gameObject.layer == 10)
                 {
-                    BattleManage.Instance.spendCharge();
+                 
                     var snakehead = c.transform.parent.GetChild(0).GetComponent<Rigidbody>();
                     if (snakehead.isKinematic == true)
                     {
@@ -182,6 +193,7 @@ public class Splitter : MonoBehaviour
                     }
 
                     cut = true;
+                    gameObject.SetActive(false);
                 }
             }
             

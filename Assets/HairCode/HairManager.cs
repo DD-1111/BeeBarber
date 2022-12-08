@@ -16,7 +16,6 @@ public class HairManager : MonoBehaviour
     private int n;
     private int row;
     private int col;
-    private int frame = 0;
     void Start()
     {
         GameObject[] temp = GameObject.FindGameObjectsWithTag("part");
