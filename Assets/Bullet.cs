@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Output the Collider's GameObject's name
-        if (collision.collider.tag == "Enemy" || collision.collider.tag == "part") return; 
+        if (collision.collider.tag == "Enemy" || collision.collider.tag == "part" || collision.collider.tag == "hair") return; 
         if (collision.collider.tag == "Player")
         {
             BattleManage.Instance.playerTakeDamage(damage);

@@ -24,7 +24,7 @@ public class lineCollider : MonoBehaviour
     void Update()
     {
         if (activeMode) { 
-            if (Physics.Linecast(transform.position, connectedbody.transform.position, LayerMask.GetMask("Saber") & LayerMask.GetMask("EnchantSaber")))
+            if (Physics.Linecast(transform.position, connectedbody.transform.position, LayerMask.GetMask("Saber") | LayerMask.GetMask("EnchantSaber")))
             {
                 if (BattleManage.Instance.enemyHealth >= 49)
                 {

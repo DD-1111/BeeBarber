@@ -21,8 +21,10 @@ public class BattleManage : MonoBehaviour
     public ScreenFlash changeStateScreenFlash;
 
     public enchantBar enchant;
-    public int chargeN = 0; 
+    public int chargeN = 0;
 
+    public GameObject snk;
+    private float chargeTime = 0;
     public OVRPlayerController mainControl;
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class BattleManage : MonoBehaviour
     {
         dashBar.SetHealth(mainControl.second * 20);
         dashBar2.SetHealth(mainControl.second * 20);
+        chargeTime += Time.deltaTime;
     }
 
     public void EnemeyTakeDamage(float damage)
@@ -78,16 +81,23 @@ public class BattleManage : MonoBehaviour
         enemyHealth = 100f;
         enemyHealthBar.SetHealth(enemyHealth);
         GameObject.FindGameObjectWithTag("disappear").SetActive(false);
-        GameObject.FindGameObjectWithTag("Hard").SetActive(true);
+        snk.SetActive(true);
     }
 
     public void charge()
     {
-        chargeN++;
-        enchant.updateCharge(chargeN);
-        if (chargeN == 3)
-        {
-            enchantSaber.SetActive(true);
+        if (chargeTime > 3) {
+            if (chargeN < 3)
+            {
+                chargeN++;
+                enchant.updateCharge(chargeN);
+            }
+            if (chargeN == 3)
+            {
+                enchantSaber.SetActive(true);
+            }
+            
+            chargeTime = 0;
         }
     }
 

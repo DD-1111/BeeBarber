@@ -352,7 +352,7 @@ public class OVRPlayerController : MonoBehaviour
 			if (second >= dashCD)
 			{
 				dashAvailable = true;
-				leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+				//leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
 			}
 		}
 	
@@ -393,7 +393,7 @@ public class OVRPlayerController : MonoBehaviour
 			}
 		}
 
-		if (Time.frameCount % 3 == 0)
+		if (Time.frameCount % 2 == 0)
 		{
 
 			float ldif = leftHandRotation.x - lRotation.x;
@@ -691,7 +691,7 @@ public class OVRPlayerController : MonoBehaviour
 		ort = Quaternion.Euler(ortEuler);
 		MoveThrottle += ort * new Vector3(-v, 0, 0);
 		dashAvailable = false;
-		leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+		//leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
 		return true;
 	}
 
@@ -706,7 +706,7 @@ public class OVRPlayerController : MonoBehaviour
 		ort = Quaternion.Euler(ortEuler);
 		MoveThrottle += ort * new Vector3(v, 0, 0);
 		dashAvailable = false;
-		leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+		//leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
 		return true;
 	}
 

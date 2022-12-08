@@ -120,11 +120,10 @@ public class Splitter : MonoBehaviour
         Collider[] colliders;
         if (gameObject.tag == "Saber")
         {
-            BattleManage.Instance.charge();
             colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber", "Hard")));
             foreach (Collider c in colliders)
             {
-
+                BattleManage.Instance.charge();
                 Destroy(c.gameObject);
                 // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
 
@@ -149,35 +148,42 @@ public class Splitter : MonoBehaviour
             }
         } else
         {
-            BattleManage.Instance.spendCharge();
             colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber")));
-            Collider c = colliders[0];
-
-            var snakehead = c.transform.parent.GetChild(0).GetComponent<Rigidbody>();
-            if (snakehead.isKinematic == true)
+            if (colliders.Length != 0)
             {
-                BattleManage.Instance.EnemeyTakeDamage(8);
-                snakehead.isKinematic = false;
-            }
-
-     
-            Destroy(c.gameObject);
-            SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
-            if (hull != null)
-            {
-                GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
-                GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
-                GameObject[] objs = new GameObject[] { lower, upper };
-
-                foreach (GameObject obj in objs)
+                Collider c = colliders[0];
+                Debug.Log(c.gameObject.layer);
+  
+                if (c.gameObject.layer == 10)
                 {
-                    Rigidbody rb = obj.AddComponent<Rigidbody>();
-                    obj.AddComponent<MeshCollider>().convex = true;
-                    rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
+                    BattleManage.Instance.spendCharge();
+                    var snakehead = c.transform.parent.GetChild(0).GetComponent<Rigidbody>();
+                    if (snakehead.isKinematic == true)
+                    {
+                        BattleManage.Instance.EnemeyTakeDamage(11);
+                        snakehead.isKinematic = false;
+                    }
+
+
+                    Destroy(c.gameObject);
+                    SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
+                    if (hull != null)
+                    {
+                        GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
+                        GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
+                        GameObject[] objs = new GameObject[] { lower, upper };
+
+                        foreach (GameObject obj in objs)
+                        {
+                            Rigidbody rb = obj.AddComponent<Rigidbody>();
+                            obj.AddComponent<MeshCollider>().convex = true;
+                            rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
+                        }
+                    }
+
+                    cut = true;
                 }
             }
-
-            cut = true;
             
         }
         
