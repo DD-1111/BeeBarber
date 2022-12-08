@@ -11,6 +11,7 @@ TagManager:
   - disappear
   - Hard
   - Saber
+  - skull
   layers:
   - Default
   - TransparentFX

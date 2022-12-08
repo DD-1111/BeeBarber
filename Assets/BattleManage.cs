@@ -34,6 +34,7 @@ public class BattleManage : MonoBehaviour
     public OVRPlayerController mainControl;
     public bool executionMode = false;
     private bool enchantAvailable;
+    private bool firsttime = true;
 
     public float minimumChargeInterval = 2f;
 
@@ -78,7 +79,7 @@ public class BattleManage : MonoBehaviour
 
     public void EnemeyTakeDamage(float damage)
     {
-        enemyHealth = Mathf.Max(0, enemyHealth - damage);
+        enemyHealth -= damage;
         enemyHealthBar.SetHealth(enemyHealth);
         if (enemyHealth <= 50f & enemyCap.GetComponent<hairMoving>().enabled)
         {
@@ -113,6 +114,7 @@ public class BattleManage : MonoBehaviour
         GameObject.FindGameObjectWithTag("disappear").SetActive(false);
         snk.SetActive(true);
         TextSetter("This customer seems to be mad, oh, she is THE MEDUSA");
+        GameObject.FindGameObjectWithTag("skull").SetActive(true);
     }
 
     public void charge()
@@ -126,7 +128,11 @@ public class BattleManage : MonoBehaviour
             if (chargeN == 3)
             {
                 enchantAvailable = true;
-                TextSetter("Press right index finger trgger to enchant the saber!!");
+                if (firsttime)
+                {
+                    TextSetter("Press right index finger trgger to enchant the saber!!");
+                    firsttime = false;
+                }
             }
             
             chargeTime = 0;

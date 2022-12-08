@@ -171,7 +171,7 @@ public class Splitter : MonoBehaviour
                     var snakehead = c.transform.parent.GetChild(0).GetComponent<Rigidbody>();
                     if (snakehead.isKinematic == true)
                     {
-                        BattleManage.Instance.EnemeyTakeDamage(11);
+                        BattleManage.Instance.EnemeyTakeDamage(18);
                         snakehead.isKinematic = false;
                     }
 
