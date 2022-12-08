@@ -117,25 +117,51 @@ public class Splitter : MonoBehaviour
 
     private void Cut()
     {
-       
-        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale/2, transform.rotation, ~(LayerMask.GetMask("Solid","Hair","Saber")));
-        foreach (Collider c in colliders)
+        Collider[] colliders;
+        if (gameObject.tag == "Saber")
         {
+            BattleManage.Instance.charge();
+            colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber", "Hard")));
+            foreach (Collider c in colliders)
+            {
 
-            // Add reactive force to the hair contacting blade, need to add explosion force to the part before and after this part.
-            // unfinished yet
+                Destroy(c.gameObject);
+                // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
 
-            //if (c.CompareTag("part"))
-            //{
-            //    Rigidbody temp = c.gameObject.GetComponent<Rigidbody>();
-            //    temp.AddExplosionForce(100, c.gameObject.transform.position, 40, 2.0f);
-            //}
+                // only do full slice while computationSaveMode is off
 
-            Destroy(c.gameObject);
-            // GameObject[] objs = c.gameObject.SliceInstantiate(transform.position, transform.up 
+                SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
+                if (hull != null)
+                {
+                    GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
+                    GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
+                    GameObject[] objs = new GameObject[] { lower, upper };
 
-            // only do full slice while computationSaveMode is off
+                    foreach (GameObject obj in objs)
+                    {
+                        Rigidbody rb = obj.AddComponent<Rigidbody>();
+                        obj.AddComponent<MeshCollider>().convex = true;
+                        rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
+                    }
+                }
+
+                cut = true;
+            }
+        } else
+        {
+            BattleManage.Instance.spendCharge();
+            colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, ~(LayerMask.GetMask("Solid", "Hair", "Saber","EnchantSaber")));
+            Collider c = colliders[0];
+
+            var snakehead = c.transform.parent.GetChild(0).GetComponent<Rigidbody>();
+            if (snakehead.isKinematic == true)
+            {
+                BattleManage.Instance.EnemeyTakeDamage(8);
+                snakehead.isKinematic = false;
+            }
+
      
+            Destroy(c.gameObject);
             SlicedHull hull = c.gameObject.Slice(transform.position, transform.up);
             if (hull != null)
             {
@@ -150,8 +176,12 @@ public class Splitter : MonoBehaviour
                     rb.AddExplosionForce(100, c.gameObject.transform.position, 20);
                 }
             }
-            
+
             cut = true;
+            
         }
+        
+
+  
     }
 }

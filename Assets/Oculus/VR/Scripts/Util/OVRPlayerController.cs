@@ -37,14 +37,13 @@ public class OVRPlayerController : MonoBehaviour
 	public bool dashAvailable;
 	public float dashSpeed = 3f;
 
-	public GameObject dashBar;
 
 	public Transform headAnchor;
 	private Quaternion hRotation;
 	private Quaternion lRotation;
 	private Quaternion rRotation;
 	public int dashCD = 5;
-	private float second = 0f;
+	public float second = 0f;
 	public GameObject leftHandCube;
 
 	public float flyspeedLimit = 6f;
@@ -354,9 +353,9 @@ public class OVRPlayerController : MonoBehaviour
 			{
 				dashAvailable = true;
 				leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-				second = 0;
 			}
 		}
+	
 
 		if (Time.frameCount % 2 == 0)
 		{
@@ -376,10 +375,12 @@ public class OVRPlayerController : MonoBehaviour
 					//dashAvailable = false;
 					//leftHandCube.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
 					Dashleft();
+					second = 0;
 				}
 				else if (rdash)
 				{
 					Dashright();
+					second = 0;
 					//Quaternion ort = transform.rotation;
 					//Vector3 ortEuler = ort.eulerAngles;
 					//ortEuler.z = ortEuler.x = 0f;

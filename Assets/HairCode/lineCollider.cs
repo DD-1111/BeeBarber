@@ -24,11 +24,13 @@ public class lineCollider : MonoBehaviour
     void Update()
     {
         if (activeMode) { 
-            if (Physics.Linecast(transform.position, connectedbody.transform.position, LayerMask.GetMask("Saber")))
+            if (Physics.Linecast(transform.position, connectedbody.transform.position, LayerMask.GetMask("Saber") & LayerMask.GetMask("EnchantSaber")))
             {
-
+                if (BattleManage.Instance.enemyHealth >= 49)
+                {
+                    BattleManage.Instance.EnemeyTakeDamage(0.4f);
+                }
                 int ncut = int.Parse(transform.name) - 1;
-                BattleManage.Instance.EnemeyTakeDamage(0.45f);
                 Transform tmptrans = transform.parent.GetChild(ncut);
                 GameObject dummy = Instantiate(prefabpart, new Vector3(tmptrans.position.x, tmptrans.position.y - 1.6f, tmptrans.position.z), Quaternion.identity, transform.parent.transform);
                 tmptrans.GetComponent<ConfigurableJoint>().connectedBody = dummy.GetComponent<Rigidbody>();
@@ -36,6 +38,7 @@ public class lineCollider : MonoBehaviour
    
                 HairCutController hairCutController = dummy.GetComponent<HairCutController>();
                 hairCutController.Record();
+
                 dummy.GetComponent<Rigidbody>().AddExplosionForce(40, tmptrans.position, 20);
                 // break joint of top joint, and initialized a dummy duplicated.
                 for (int i = 0; i < ncut; i++)

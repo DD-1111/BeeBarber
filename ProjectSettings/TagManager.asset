@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Enemy
   - disappear
+  - Hard
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - UI
   - Hair
   - Saber
-  - 
+  - EnchantSaber
   - Solid
-  - 
+  - Hard
   - 
   - 
   - 

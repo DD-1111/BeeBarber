@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
 
     private float timer = 0f;
     private bool useGravity = false;
+
     // Start is called before the first frame update
     void Start()
     {

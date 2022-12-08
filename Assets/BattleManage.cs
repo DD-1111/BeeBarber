@@ -9,12 +9,21 @@ public class BattleManage : MonoBehaviour
     public HealthBar playerHealthBar;
     public float playerHealth = 100;
 
+    public HealthBar dashBar;
+    public HealthBar dashBar2;
+    public GameObject enchantSaber;
+
     public HealthBar enemyHealthBar;
     public float enemyHealth = 100;
     public GameObject enemyCap;
 
     public ScreenFlash screenFlash;
     public ScreenFlash changeStateScreenFlash;
+
+    public enchantBar enchant;
+    public int chargeN = 0; 
+
+    public OVRPlayerController mainControl;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,13 +37,14 @@ public class BattleManage : MonoBehaviour
 
     void Start()
     {
-
+        enchant.updateCharge(chargeN);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        dashBar.SetHealth(mainControl.second * 20);
+        dashBar2.SetHealth(mainControl.second * 20);
     }
 
     public void EnemeyTakeDamage(float damage)
@@ -68,6 +78,26 @@ public class BattleManage : MonoBehaviour
         enemyHealth = 100f;
         enemyHealthBar.SetHealth(enemyHealth);
         GameObject.FindGameObjectWithTag("disappear").SetActive(false);
+        GameObject.FindGameObjectWithTag("Hard").SetActive(true);
+    }
+
+    public void charge()
+    {
+        chargeN++;
+        enchant.updateCharge(chargeN);
+        if (chargeN == 3)
+        {
+            enchantSaber.SetActive(true);
+        }
+    }
+
+    public bool spendCharge()
+    {
+        if (chargeN != 3) return false;
+        chargeN = 0;
+        enchant.updateCharge(chargeN);
+        enchantSaber.SetActive(false);
+        return true;
     }
 }   
 
