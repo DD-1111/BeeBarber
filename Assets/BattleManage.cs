@@ -75,6 +75,11 @@ public class BattleManage : MonoBehaviour
         {
             spendCharge();
         }
+        if ((!executionMode) & enemyHealth <= 0f)
+        {
+            finish();
+        }
+
     }
 
     public void EnemeyTakeDamage(float damage)
@@ -89,10 +94,7 @@ public class BattleManage : MonoBehaviour
             }
             changeState();
         }
-        if (enemyHealth <= 0f)
-        {
-            finish();
-        }
+     
     }
 
     public void playerTakeDamage(float damage)
@@ -151,7 +153,7 @@ public class BattleManage : MonoBehaviour
     public void finish()
     {
         detach("Hair");
-        detach("Part");
+        detach("part");
         detach("Hard");
         enchantSaber.SetActive(false);
         theSaber.SetActive(false);
