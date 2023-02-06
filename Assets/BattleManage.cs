@@ -86,7 +86,7 @@ public class BattleManage : MonoBehaviour
     {
         enemyHealth -= damage;
         enemyHealthBar.SetHealth(enemyHealth);
-        if (enemyHealth <= 50f & enemyCap.GetComponent<hairMoving>().enabled)
+        if (enemyHealth <= 45f & enemyCap.GetComponent<hairMoving>().enabled)
         {
             if (changeStateScreenFlash)
             {

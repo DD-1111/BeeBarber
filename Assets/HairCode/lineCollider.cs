@@ -28,7 +28,7 @@ public class lineCollider : MonoBehaviour
             {
                 if (BattleManage.Instance.enemyHealth >= 49)
                 {
-                    BattleManage.Instance.EnemeyTakeDamage(0.4f);
+                    BattleManage.Instance.EnemeyTakeDamage(0.3f);
                 }
                 int ncut = int.Parse(transform.name) - 1;
                 Transform tmptrans = transform.parent.GetChild(ncut);
